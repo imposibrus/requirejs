@@ -1,5 +1,18 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .container
+    .row
+      .col-xs-3
+        #sidebar
+          ul.nav.nav-pills.nav-stacked
+            li.active
+              a(href="#") Main
+            li
+              a(href="#") Users
+            li
+              a(href="#") Posts
+      .col-xs-9
+        #main
+          h1= title
+          p Welcome to #{title}
