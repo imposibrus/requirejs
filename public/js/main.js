@@ -7,9 +7,9 @@ requirejs.config({
     "backbone": "/bower_components/backbone/backbone",
     "marionette": "/bower_components/marionette/lib/backbone.marionette",
     "bootstrap": "/bower_components/bootstrap/dist/js/bootstrap",
-    "views": 'views/',
-    "models": 'models/',
-    "collections": 'collections/'
+    "views": 'views',
+    "models": 'models',
+    "collections": 'collections'
   },
   shim: {
     "jquery.beta": ['jquery'],
@@ -24,6 +24,12 @@ requirejs(["bootstrap"]);
 //  console.log(mymodule, e);
 //});
 
-define(['app'], function(App) {
-  console.log(App);
+define(['app', 'router', 'views/navigation'], function(App, AppRouter, Navigation) {
+  App.addInitializer(function() {
+    App.Router = new AppRouter();
+    App.sidebar.show(Navigation.sidebar);
+    App.navigation.show(Navigation.navigation);
+    return App.vent.trigger("routing:started");
+  });
+  return App.start();
 });

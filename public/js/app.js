@@ -1,15 +1,21 @@
 
-define(['marionette', 'views/sidebar'], function(Marionette, Sidebar) {
-  var App = new Marionette.Application();
+define(['marionette'], function(Marionette) {
+  App = new Marionette.Application();
 
   App.addRegions({
     sidebar: '#sidebar',
-    main: '#main'
+    main: '#main',
+    navigation: '#navigation',
+    footer: '#footer'
   });
 
   App.addInitializer(function() {
-    App.sidebar.show(Sidebar);
+    App.vent.on('routing:started', function() {
+      if(!Backbone.History.started) {
+        Backbone.history.start({pushState: true});
+      }
+    });
   });
-  App.start();
+
   return App;
 });
